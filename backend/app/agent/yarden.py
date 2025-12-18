@@ -4,11 +4,10 @@ from app.agent.personality import YARDEN_SYSTEM_PROMPT
 from app.agent.tools import TOOLS, execute_tool
 from app.services.conversation import ConversationService
 
-settings = get_settings()
-
 
 class YardenAgent:
     def __init__(self):
+        settings = get_settings()
         self.client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
         self.conversation_service = ConversationService()
         self.model = "claude-sonnet-4-20250514"
