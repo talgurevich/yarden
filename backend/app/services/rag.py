@@ -1,5 +1,6 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.config import get_settings
+import certifi
 
 
 class RAGService:
@@ -7,7 +8,10 @@ class RAGService:
 
     def __init__(self):
         settings = get_settings()
-        self.client = AsyncIOMotorClient(settings.mongodb_uri)
+        self.client = AsyncIOMotorClient(
+            settings.mongodb_uri,
+            tlsCAFile=certifi.where()
+        )
         self.db = self.client.yarden
         self.workouts_collection = self.db.workout_vectors
         self.exercises_collection = self.db.exercise_vectors
