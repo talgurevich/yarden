@@ -2,11 +2,10 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from app.config import get_settings
 from typing import List, Dict
 
-settings = get_settings()
-
 
 class ConversationService:
     def __init__(self):
+        settings = get_settings()
         self.client = AsyncIOMotorClient(settings.mongodb_uri)
         self.db = self.client.yarden
         self.collection = self.db.conversations

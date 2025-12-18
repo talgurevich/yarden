@@ -1,13 +1,12 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.config import get_settings
 
-settings = get_settings()
-
 
 class RAGService:
     """RAG service for searching workout PDFs and exercise info."""
 
     def __init__(self):
+        settings = get_settings()
         self.client = AsyncIOMotorClient(settings.mongodb_uri)
         self.db = self.client.yarden
         self.workouts_collection = self.db.workout_vectors

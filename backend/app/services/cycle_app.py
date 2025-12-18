@@ -2,13 +2,12 @@ import httpx
 from app.config import get_settings
 from typing import Optional
 
-settings = get_settings()
-
 
 class CycleAppService:
     """Service to interact with the Cycle-App external system."""
 
     def __init__(self):
+        settings = get_settings()
         self.base_url = settings.cycle_app_api_url
         self.api_key = settings.cycle_app_api_key
 

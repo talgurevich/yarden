@@ -2,14 +2,32 @@ import json
 from app.services.cycle_app import CycleAppService
 from app.services.rag import RAGService
 
-cycle_app = CycleAppService()
-rag = RAGService()
+# Lazy initialization
+_cycle_app = None
+_rag = None
+
+
+def get_cycle_app():
+    global _cycle_app
+    if _cycle_app is None:
+        _cycle_app = CycleAppService()
+    return _cycle_app
+
+
+def get_rag():
+    global _rag
+    if _rag is None:
+        _rag = RAGService()
+    return _rag
 
 
 async def execute_tool(tool_name: str, tool_input: dict, user_id: str) -> str:
     """Execute a tool and return the result as a string."""
 
     try:
+        cycle_app = get_cycle_app()
+        rag = get_rag()
+
         if tool_name == "get_user_profile":
             result = await cycle_app.get_user_profile(tool_input["user_id"])
 
